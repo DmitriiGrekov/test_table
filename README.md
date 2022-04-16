@@ -1,4 +1,4 @@
-# Test task: Multi-level comment system 
+# Test task: Ajax Table 
 
 This project is a solution to a test table.
 
