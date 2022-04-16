@@ -1,0 +1,107 @@
+{% extends  'base.html'%}
+
+{% block content %}
+
+
+<button type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Добавить строку</button>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Добавить строку в таблицу</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Дата</label>
+            <input type="text" id='date_input' class="form-control" name='date' id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Название</label>
+            <textarea class="form-control" id='name_input' name='name' id="message-text"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Количество</label>
+            <input type="number" class="form-control" id='count_input' name='count' id="recipient-name">
+          </div>
+          <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Расстояние</label>
+            <input type="number" class="form-control" name='distance' id='distance_input' id="recipient-name">
+          </div>
+          {% csrf_token %} 
+
+        </form>
+<div style='display: none' class="alert alert-success" id='success_message' role="alert">
+    Запись успешно создана
+</div>
+      </div>
+
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" id='add_rows' class="btn btn-primary">Добавить строку</button>
+
+      </div>
+    </div>
+  </div>
+
+
+
+      </div> 
+
+
+<table class="table" id='sortable'>
+  <thead>
+    <tr>
+      <th scope="col">Дата</th>
+      <th scope="col" data-type='name' >Название &#9650;</th>
+      <th scope="col" data-type='count'>Количество &#9650;</th>
+      <th scope="col" data-type='distance'>Расстояние &#9650;</th>
+    </tr>
+  </thead>
+
+  <tbody>
+      {% for row in rows %}
+<tr>
+    <td>{{row.date|date:"d.m.Y"}}</td>
+    <td>{{row.name}}</td>
+    <td>{{row.count}}</td>
+    <td>{{row.distance}}</td>
+    </tr>
+
+
+      {% endfor %}
+    
+  </tbody>
+</table>
+
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+        {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link active" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+        {% endif %}
+
+        {% for p in page_obj.paginator.page_range %} 
+        {% if page_obj.number == p  %} 
+
+            <li class="page-item active"><a class="page-link" href="?page={{p}}">{{p}}</a></li>
+        {% else  %}   
+            <li class="page-item"><a class="page-link" href="?page={{p}}">{{p}}</a></li>
+        {% endif %}
+
+
+
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+        {% endif %}
+  </ul>
+</nav>
+
+
+{% endblock %}

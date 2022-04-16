@@ -1,0 +1,35 @@
+<form>
+    {% csrf_token %}
+    <legend>Фильтр</legend>
+
+  <div class="mb-3">
+    <label for="column" class="form-label">Колонка</label>
+    <select id='column' class="form-select" aria-label="Default select example">
+      <option value='none' selected>Выберите колонку для фильтрации</option>
+      <option value="date">Дата</option>
+      <option value="name">Название</option>
+      <option value="count">Количество</option>
+      <option value="distance">Расстояние</option>
+    </select>
+  </div>
+
+    <div class="mb-3">
+    <label for="condition" class="form-label">Условие</label>
+    <select class="form-select" id='condition' aria-label="Default select example">
+      <option value='none' selected>Выберите условие</option>
+      <option value="equal">Равно</option>
+      <option value="contains">Содержит</option>
+      <option value="more">Больше</option>
+      <option value="less">Меньше</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label for="meaning" class="form-label">Введите значение для фильтрации</label>
+    <input type="input" id='meaning' class="form-control" placeholder='Введите значение' id="exampleInputPassword1">
+  </div>
+
+  <div class="alert alert-danger" id='message' style='display: none;' role="alert">
+    </div>
+  <button id='filter' type="submit" class="btn btn-primary">Фильтровать</button>
+</form>
